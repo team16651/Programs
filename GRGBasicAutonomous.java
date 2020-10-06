@@ -86,10 +86,10 @@ public class GRGBasicAutonomous extends LinearOpMode {
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 //      Step 1:   Move Forward
 
-        Motor0.setPower(0.95);
-        Motor3.setPower(0.95);
-        Motor1.setPower(-0.95);
-        Motor2.setPower(-0.95);
+        Motor0.setPower(1.9);
+        Motor3.setPower(1.9);
+        Motor1.setPower(-1.9);
+        Motor2.setPower(-1.9);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.5)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
@@ -104,4 +104,4 @@ public class GRGBasicAutonomous extends LinearOpMode {
 
 }
 
-// You can edit this file by clicking the pencil icon in the top right corner. Copy and paste each new change into the program and make changes from there, but make sure to commit the new changes after each practice.
+// You can edit this file by clicking the pencil icon in the top right corner. Copy and paste each new change into the program and make changes from there, but make sure to comm
