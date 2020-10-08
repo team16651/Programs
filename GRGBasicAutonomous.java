@@ -91,7 +91,7 @@ public class GRGBasicAutonomous extends LinearOpMode {
         Motor1.setPower(-1.9);
         Motor2.setPower(-1.9);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
