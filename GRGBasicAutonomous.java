@@ -34,7 +34,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -60,7 +63,8 @@ public class GRGBasicAutonomous extends LinearOpMode {
     private DcMotor Motor2 = null;
     private DcMotor Motor3 = null;
     private Servo ArmServo = null;
-
+    ColorSensor sensorColor;
+    
     @Override
     public void runOpMode() {
 
@@ -73,7 +77,10 @@ public class GRGBasicAutonomous extends LinearOpMode {
         Motor2 = hardwareMap.get(DcMotor.class, "Motor_2");
         Motor3 = hardwareMap.get(DcMotor.class, "Motor_3");
         ArmServo=hardwareMap.get(Servo.class,"armservo");
-
+        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+       float hsvValues[] = {28F, 91F, 100F};
+        final float values[] = hsvValues;
+        final double SCALE_FACTOR = 255;
         
 
         // Send telemetry message to signify robot waiting;
@@ -95,6 +102,10 @@ public class GRGBasicAutonomous extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+          //Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                    //(int) (sensorColor.green() * SCALE_FACTOR),
+                    //(int) (sensorColor.blue() * SCALE_FACTOR),
+                    //hsvValues);
         Motor0.setPower(0);
         Motor3.setPower(0);
         Motor1.setPower(0);
