@@ -191,22 +191,7 @@ public class GRG_ColorTest extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 //      Step 1:   Move Forward
-        ArmServo.setPosition(1);
-        Motor0.setPower(0);
-        Motor3.setPower(0);
-        Motor1.setPower(0);
-        Motor2.setPower(0);
-        
-        
-        Motor0.setPower(-0.4);
-        Motor3.setPower(0.4);
-        Motor1.setPower(-0.4);
-        Motor2.setPower(0.4);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        ArmServo.setPosition(1
         
         Motor0.setPower(0);
         Motor3.setPower(0);
