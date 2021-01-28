@@ -205,7 +205,7 @@ public class GRG_ColorTest extends LinearOpMode {
         Motor1.setPower(-0.4);
         Motor2.setPower(-0.4);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.65)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.48)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
       
