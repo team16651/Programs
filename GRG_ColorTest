@@ -1,5 +1,3 @@
-
-
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -150,7 +148,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="GRG Color Test", group="Linear Opmode")
+@Autonomous (name="GRG_ColorTest", group ="Linear Opmode")
 //@Disabled
 public class GRG_ColorTest extends LinearOpMode {
 
@@ -161,105 +159,39 @@ public class GRG_ColorTest extends LinearOpMode {
     private DcMotor Motor2 = null;
     private DcMotor Motor3 = null;
     private Servo ArmServo = null;
+    private Servo WobbleKicker = null;
+    private DcMotor ArmMotor = null;
     private String pathvar = null;
     ColorSensor sensorColor;
-    
-    @Override
-    public void runOpMode() {
-
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        Motor0 = hardwareMap.get(DcMotor.class, "Motor_0");
-        Motor1 = hardwareMap.get(DcMotor.class, "Motor_1");
-        Motor2 = hardwareMap.get(DcMotor.class, "Motor_2");
-        Motor3 = hardwareMap.get(DcMotor.class, "Motor_3");
-        
-        
-        ArmServo=hardwareMap.get(Servo.class,"armservo");
-        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color");
-       
-        
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-//      Step 1:   Move Forward
-        ArmServo.setPosition(1
-        
-        Motor0.setPower(0);
-        Motor3.setPower(0);
-        Motor1.setPower(0);
-        Motor2.setPower(0);
-        
-        sleep(500);
-        
+   
+   
+    public void nodonut(int cc){
         Motor0.setPower(0.4);
-        Motor3.setPower(0.4);
-        Motor1.setPower(-0.4);
-        Motor2.setPower(-0.4);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.48)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-      
-        }
-        Motor0.setPower(0);
-        Motor3.setPower(0);
-        Motor1.setPower(0);
-        Motor2.setPower(0);
-        sleep(1000);
-        
-            //color neutralizer
-             int r = sensorColor.red();
-             int g = sensorColor.green();
-             int b = sensorColor.blue();
-            
-            int cc = (r*g)/(b*b);
-            
-            telemetry.addData("Before Arm: ", cc);
-                telemetry.addData("Before` Arm Red: ", sensorColor.red());
-                telemetry.addData("Before Arm Blue: ", sensorColor.blue());
-                telemetry.addData("Before Arm Green: ", sensorColor.green());
-                        telemetry.update();
-                sleep(3000);
-           
-            if (cc > 1) {
-                
-                cc=0;
-                telemetry.addData("Before Arm: ", cc);
-                telemetry.addData("Before` Arm Red: ", sensorColor.red());
-                telemetry.addData("Before Arm Blue: ", sensorColor.blue());
-                telemetry.addData("Before Arm Green: ", sensorColor.green());
-                        telemetry.update();
-                sleep(3000);
-               
-                
-                ArmServo.setPosition(0);
-                 r = sensorColor.red();
-                 g = sensorColor.green();
-                 b = sensorColor.blue();
-            
-                 cc = (r*g)/(b*b);
-                              
-                telemetry.addData("After ARm: ", cc);
-                telemetry.addData("After Arm Red: ", sensorColor.red());
-                telemetry.addData("After Arm Blue: ", sensorColor.blue());
-                telemetry.addData("After Arm Green: ", sensorColor.green());
-                        telemetry.update();
-                        sleep(3000); 
+                Motor3.setPower(-0.4);
+                Motor1.setPower(0.4);
+                Motor2.setPower(-0.4);
                 runtime.reset();
-                
-
-                if (cc > 1) {
-                    //four rings path: Path C
-                    ArmServo.setPosition(1);
+                while (opModeIsActive() && (runtime.seconds() < 1)) {
+                telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+                telemetry.addData("Path A: ", cc);
+                telemetry.update();
+                sleep(500);
+                }
+        //move forward
+                Motor0.setPower(0.4);
+                Motor3.setPower(0.4);
+                Motor1.setPower(-0.4);
+                Motor2.setPower(-0.4);
+                runtime.reset();
+                while (opModeIsActive() && (runtime.seconds() < 2.7)) {
+                telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+                telemetry.addData("Path A: ", cc);
+                telemetry.update();
+                }
+        
+    }
+    public void fourdonut(int cc){
+         ArmServo.setPosition(0);
                     sleep(1000);
                     //straffe left
                     Motor0.setPower(0.4);
@@ -272,7 +204,7 @@ public class GRG_ColorTest extends LinearOpMode {
                         telemetry.addData("Path C: ", cc);
                         telemetry.update();
                         sleep(500);
-                    }
+                    }  
         //move forward
                     Motor0.setPower(0.4);
                     Motor3.setPower(0.4);
@@ -288,9 +220,16 @@ public class GRG_ColorTest extends LinearOpMode {
                     Motor3.setPower(0);
                     Motor1.setPower(0);
                     Motor2.setPower(0);
-                    
-                    //lift arm
-                    ArmServo.setPosition(0);
+
+                    //lower arm
+            ArmMotor.setPower(0.1);
+runtime.reset();
+                    while (opModeIsActive() && (runtime.seconds() < 0.7)) {
+                        telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+                        telemetry.addData("Path C: ", cc);
+                        telemetry.update();
+
+                    WobbleKicker.setPosition(1);
                     sleep(1000);
 //move back to the line
 
@@ -304,27 +243,29 @@ public class GRG_ColorTest extends LinearOpMode {
                         telemetry.addData("Path C: ", cc);
                         telemetry.update();
                     }
-                }
-                else {
-                    //one ring path: Path B
+                
+                            }
+                    }
+        public void onedonut(int cc){
+            //one ring path: Path B
+                    
                     Motor0.setPower(0.4);
                     Motor3.setPower(-0.4);
                     Motor1.setPower(0.4);
-                    Motor2.setPower(-0.4);
-                    runtime.reset();
-                    while (opModeIsActive() && (runtime.seconds() < 0.7)) {
-                        telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+                   Motor2.setPower(-0.4);
+                   runtime.reset();
+                    while (opModeIsActive() && (runtime.seconds() < 0.5)) {
                         telemetry.addData("Path B: ", cc);
                         telemetry.update();
                         sleep(500);
                     }
-        
+
                     Motor0.setPower(0.4);
                     Motor3.setPower(0.4);
                     Motor1.setPower(-0.4);
                     Motor2.setPower(-0.4);
                     runtime.reset();
-                    while (opModeIsActive() && (runtime.seconds() < 4.5)) {
+                    while (opModeIsActive() && (runtime.seconds() < 4.2)) {
                         telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                         telemetry.addData("Path B: ", cc);
                         telemetry.update();
@@ -334,10 +275,11 @@ public class GRG_ColorTest extends LinearOpMode {
                     Motor1.setPower(-0.4);
                     Motor2.setPower(0.4);
                     runtime.reset();
-                    while (opModeIsActive() && (runtime.seconds() < 0.7)) {
+                    while (opModeIsActive() && (runtime.seconds() < 0.6)) {
                         telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                         telemetry.addData("Path B: ", cc);
                         telemetry.update();
+                       WobbleKicker.setPosition(1);
                         sleep(500);
                     }
                     Motor0.setPower(-0.4);
@@ -351,38 +293,103 @@ public class GRG_ColorTest extends LinearOpMode {
                         telemetry.update();
                     }
                 }
-                
-            }
-            else {
-                //zero ring path: Path A
-                //straffe left
-                Motor0.setPower(0.4);
-                Motor3.setPower(-0.4);
-                Motor1.setPower(0.4);
-                Motor2.setPower(-0.4);
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 0.7)) {
-                telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                telemetry.addData("Path A: ", cc);
-                telemetry.update();
-                sleep(500);
-                }
-        //move forward
-                Motor0.setPower(0.4);
-                Motor3.setPower(0.4);
-                Motor1.setPower(-0.4);
-                Motor2.setPower(-0.4);
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 3)) {
-                telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                telemetry.addData("Path A: ", cc);
-                telemetry.update();
-                }
-            }
+        
+
+            
+    @Override
+    public void runOpMode() {
+
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
+         */
+        Motor0 = hardwareMap.get(DcMotor.class, "Motor_0");
+        Motor1 = hardwareMap.get(DcMotor.class, "Motor_1");
+        Motor2 = hardwareMap.get(DcMotor.class, "Motor_2");
+        Motor3 = hardwareMap.get(DcMotor.class, "Motor_3");
+    ArmMotor= hardwareMap.get(DcMotor.class, "ArmMotor");
+
+ArmServo=hardwareMap.get(Servo.class,"armservo");
+        WobbleKicker=hardwareMap.get(Servo.class,"WobbleKicker");
+        sensorColor = hardwareMap.get(ColorSensor.class, "sensor_color");
+
+
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Ready to run");    //
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way open hand
+//      Step 1:   Move Right 
+        ArmServo.setPosition(0);
+        Motor0.setPower(0);
+        Motor3.setPower(0);
+        Motor1.setPower(0);
+        Motor2.setPower(0);
+
+
+        Motor0.setPower(-0.4);
+        Motor3.setPower(0.4);
+        Motor1.setPower(-0.4);
+        Motor2.setPower(0.4);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.7)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
         }
-      
+
+        Motor0.setPower(0);
+        Motor3.setPower(0);
+        Motor1.setPower(0);
+        Motor2.setPower(0);
+
+        sleep(500);
+
+        Motor0.setPower(0.4);
+        Motor3.setPower(0.4);
+        Motor1.setPower(-0.4);
+        Motor2.setPower(-0.4);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+
+        }
+        Motor0.setPower(0);
+        Motor3.setPower(0); 
+        Motor1.setPower(0);
+        Motor2.setPower(0);
+        sleep(1000);
+
+            //color neutralizer
+             int r = sensorColor.red();
+             int g = sensorColor.green();
+             int b = sensorColor.blue();
+
+            int cc = r;
+
+            telemetry.addData("Before Arm: ", cc);
+                telemetry.addData("Before` Arm Red: ", sensorColor.red());
+                telemetry.addData("Before Arm Blue: ", sensorColor.blue());
+                telemetry.addData("Before Arm Green: ", sensorColor.green());
+                        telemetry.update();
+                sleep(3000);
+
+            
+
+                if (cc > 70) {
+                   fourdonut(cc);
+                   
+                } else if (cc < 45) {
+                   nodonut(cc);
+                
+                }else  {
+                    onedonut(cc);
+                }
+        }
+
     }    
 
-
-
-// You can edit this file by clicking the pencil icon in the top right corner. Copy and paste each new change into the program and make changes from there, but make sure to comm
